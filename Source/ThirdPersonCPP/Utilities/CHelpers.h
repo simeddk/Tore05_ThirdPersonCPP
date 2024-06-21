@@ -46,4 +46,10 @@ public:
 		
 		InActor->SetRootComponent(*OutComponent);
 	}
+
+	template<typename T>
+	static void CreateActorComponent(AActor* InActor, T** OutComponent, FName InName)
+	{
+		*OutComponent = InActor->CreateDefaultSubobject<T>(InName);
+	}
 };

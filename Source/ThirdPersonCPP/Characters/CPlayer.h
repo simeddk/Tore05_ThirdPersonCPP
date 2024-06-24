@@ -2,12 +2,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/CStateComponent.h"
 #include "CPlayer.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
 class UCAttributeComponent;
 class UCOptionComponent;
+class UCStateComponent;
+class UCMontagesComponent;
 
 UCLASS()
 class THIRDPERSONCPP_API ACPlayer : public ACharacter
@@ -36,6 +39,19 @@ private:
 	void OnWalk();
 	void OffWalk();
 
+	void OnEvade();
+
+private:
+	void Begin_Roll();
+	void Begin_Backstep();
+
+public:
+	void End_Roll();
+	void End_Backstep();
+
+private:
+	UFUNCTION()
+	void OnStateTypeChanged(EStateType InPrevType, EStateType InNewType);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
@@ -50,4 +66,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
 	UCOptionComponent* OptionComp;
 
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
+	UCStateComponent* StateComp;
+
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
+	UCMontagesComponent* MontagesComp;
 };

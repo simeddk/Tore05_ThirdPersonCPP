@@ -4,6 +4,8 @@
 #include "Components/ActorComponent.h"
 #include "CActionComponent.generated.h"
 
+class UCActionData;
+
 UENUM(BlueprintType)
 enum class EActionType : uint8
 {
@@ -25,7 +27,7 @@ protected:
 
 public:
 	UFUNCTION(BlueprintPure)
-	FORCEINLINE bool IsUnaremdMode() { return Type == EActionType::Unaremd; }
+	FORCEINLINE bool IsUnarmedMode() { return Type == EActionType::Unarmed; }
 
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE bool IsFistMode() { return Type == EActionType::Fist; }
@@ -46,7 +48,7 @@ public:
 	FORCEINLINE bool IsWhirlwindMode() { return Type == EActionType::Whirlwind; }
 
 public:
-	void SetUnaremdMode();
+	void SetUnarmedMode();
 	void SetFistMode();
 	void SetOneHandMode();
 	void SetTwoHandMode();
@@ -61,6 +63,10 @@ private:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FActionTypeChanged OnActionTypeChanged;
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "DataAsset")
+	UCActionData* DataAssets[(int32)EActionType::Max];
 
 private:
 	EActionType Type;

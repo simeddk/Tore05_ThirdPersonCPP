@@ -11,6 +11,7 @@ class UCAttributeComponent;
 class UCOptionComponent;
 class UCStateComponent;
 class UCMontagesComponent;
+class UCActionComponent;
 
 UCLASS()
 class THIRDPERSONCPP_API ACPlayer : public ACharacter
@@ -40,6 +41,10 @@ private:
 	void OffWalk();
 
 	void OnEvade();
+
+	void OnFist();
+	void OnOneHand();
+	void OnTwoHand();
 
 private:
 	void Begin_Roll();
@@ -71,4 +76,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
 	UCMontagesComponent* MontagesComp;
+
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
+	UCActionComponent* ActionComp;
 };

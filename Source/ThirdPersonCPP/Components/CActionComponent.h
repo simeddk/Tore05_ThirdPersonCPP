@@ -27,6 +27,9 @@ protected:
 
 public:
 	UFUNCTION(BlueprintPure)
+	FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+
+	UFUNCTION(BlueprintPure)
 	FORCEINLINE bool IsUnarmedMode() { return Type == EActionType::Unarmed; }
 
 	UFUNCTION(BlueprintPure)
@@ -70,4 +73,5 @@ private:
 
 private:
 	EActionType Type;
+
 };

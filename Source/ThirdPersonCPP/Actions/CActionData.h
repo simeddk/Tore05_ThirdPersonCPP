@@ -38,6 +38,12 @@ class THIRDPERSONCPP_API UCActionData : public UDataAsset
 public:
 	void BeginPlay(ACharacter* InOwnerCharacter);
 
+private:
+	FString MakeActorLable(ACharacter* InOwnerCharacter, FString InMiddleName);
+
+public:
+	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Equipment")
 	TSubclassOf<ACEquipment> EquipmentClass;

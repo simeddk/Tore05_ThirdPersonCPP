@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/CStateComponent.h"
+#include "Interfaces/CCharacterInterface.h"
 #include "CPlayer.generated.h"
 
 class USpringArmComponent;
@@ -12,9 +13,10 @@ class UCOptionComponent;
 class UCStateComponent;
 class UCMontagesComponent;
 class UCActionComponent;
+class UMaterialInstanceDynamic;
 
 UCLASS()
-class THIRDPERSONCPP_API ACPlayer : public ACharacter
+class THIRDPERSONCPP_API ACPlayer : public ACharacter, public ICCharacterInterface
 {
 	GENERATED_BODY()
 
@@ -27,6 +29,9 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+public:
+	void ChangeBodyColor(FLinearColor InColor) override;
 
 private:
 	void OnMoveForward(float Axis);
@@ -79,4 +84,8 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
 	UCActionComponent* ActionComp;
+
+private:
+	UMaterialInstanceDynamic* BodyMaterial;
+	UMaterialInstanceDynamic* LogoMaterial;
 };

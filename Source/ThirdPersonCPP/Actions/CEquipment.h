@@ -10,6 +10,7 @@ class UCStateComponent;
 class UCAttributeComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEquipmentDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUnequipmentDelegate);
 
 UCLASS()
 class THIRDPERSONCPP_API ACEquipment : public AActor
@@ -42,6 +43,9 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FEquipmentDelegate OnEquipmentDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FUnequipmentDelegate OnUnequipmentDelegate;
 
 protected:
 	UPROPERTY(BlueprintReadOnly)

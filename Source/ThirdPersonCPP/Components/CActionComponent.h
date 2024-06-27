@@ -26,6 +26,9 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	void DoAction();
+
+public:
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
 

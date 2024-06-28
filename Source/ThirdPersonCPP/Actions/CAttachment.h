@@ -5,6 +5,10 @@
 #include "CAttachment.generated.h"
 
 class ACharacter;
+class UShapeComponent;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttachmentBeginOverlap, ACharacter*, InAttacker, AActor*, InCauser, ACharacter*, InOtherCharacter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttachmentEndOverlap, ACharacter*, InAttacker, AActor*, InCauser, ACharacter*, InOtherCharacter);
 
 UCLASS()
 class THIRDPERSONCPP_API ACAttachment : public AActor
@@ -24,6 +28,24 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUnequip();
 
+private:
+	UFUNCTION()
+	void OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnComponentEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+		
+public:
+	void OnCollision();
+	void OffCollision();
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FAttachmentBeginOverlap OnAttachmentBeginOverlap;
+
+	UPROPERTY(BlueprintAssignable)
+	FAttachmentEndOverlap OnAttachmentEndOverlap;
+
 protected:
 	UFUNCTION(BlueprintCallable)
 	void ActorAttachTo(FName InSocketName);
@@ -35,4 +57,7 @@ private:
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	ACharacter* OwnerCharacter;
+
+private:
+	TArray<UShapeComponent*> Collisions;
 };

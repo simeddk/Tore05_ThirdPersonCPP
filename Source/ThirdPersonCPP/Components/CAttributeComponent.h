@@ -40,10 +40,10 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Attributes")
-		float WalkSpeeds[(int32)EWalkSpeedType::Max];
+	float WalkSpeeds[(int32)EWalkSpeedType::Max];
 
 	UPROPERTY(EditAnywhere, Category = "Attributes")
-		float MaxHealth;
+	float MaxHealth;
 
 private:
 	bool bCanMove;

@@ -41,6 +41,8 @@ protected:
 public:
 	void PlayRoll();
 	void PlayBackstep();
+	void PlayHitted();
+	void PlayDead();
 
 private:
 	void PlayAnimMontage(EStateType InStateType);

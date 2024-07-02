@@ -66,6 +66,11 @@ void ACDoAction_Melee::ClearHittedCharacters()
 	HittedCharacters.Empty();
 }
 
+void ACDoAction_Melee::RestoreGlobalTimeDilation()
+{
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
+}
+
 void ACDoAction_Melee::OnAttachmentBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)
 {
 	Super::OnAttachmentBeginOverlap(InAttacker, InCauser, InOtherCharacter);
@@ -92,7 +97,14 @@ void ACDoAction_Melee::OnAttachmentBeginOverlap(ACharacter* InAttacker, AActor* 
 			PC->PlayerCameraManager->PlayCameraShake(ShakeClass);
 		}
 	}
-	//Todo. RestoreGlobalTimeDilation....
+
+	UParticleSystem* HitEffect = Datas[ComboCount].Effect;
+	if (HitEffect)
+	{
+		FTransform Trasform = Datas[ComboCount].EffectTransform;
+		Trasform.AddToTranslation(InOtherCharacter->GetActorLocation());
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitEffect, Trasform);
+	}
 
 	//Take Damage
 	FDamageEvent DamageEvent;

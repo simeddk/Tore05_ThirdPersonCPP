@@ -4,6 +4,7 @@
 #include "Actions/CActionData.h"
 #include "Actions/CEquipment.h"
 #include "Actions/CDoAction.h"
+#include "Actions/CAttachment.h"
 
 UCActionComponent::UCActionComponent()
 {
@@ -36,6 +37,18 @@ void UCActionComponent::DoAction()
 		ACDoAction* DoAction = DataAssets[(int32)Type]->GetDoAction();
 		DoAction->DoAction();
 	}
+}
+
+void UCActionComponent::OffAllCollsions()
+{
+	for (const auto& DataAsset : DataAssets)
+	{
+		if (DataAsset && DataAsset->GetAttachment())
+		{
+			DataAsset->GetAttachment()->OffCollision();
+		}
+	}
+
 }
 
 void UCActionComponent::SetUnarmedMode()

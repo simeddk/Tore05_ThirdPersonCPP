@@ -24,6 +24,10 @@ public:
 	void EnableCombo();
 	void DisableCombo();
 	void ClearHittedCharacters();
+
+private:
+	UFUNCTION()
+	void RestoreGlobalTimeDilation();
 	
 private:
 	int32 ComboCount;

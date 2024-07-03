@@ -71,6 +71,7 @@ public:
 	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
 	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
 	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
+	FORCEINLINE FLinearColor GetEquipmentColor() { return EquipmentColor; }
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Equipment")

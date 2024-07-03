@@ -105,8 +105,11 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Fist", EInputEvent::IE_Pressed, this, &ACPlayer::OnFist);
 	PlayerInputComponent->BindAction("OneHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnOneHand);
 	PlayerInputComponent->BindAction("TwoHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnTwoHand);
+	PlayerInputComponent->BindAction("MagicBall", EInputEvent::IE_Pressed, this, &ACPlayer::OnMagicBall);
 
 	PlayerInputComponent->BindAction("PrimaryAction", EInputEvent::IE_Pressed, this, &ACPlayer::OnPrimaryAction);
+	PlayerInputComponent->BindAction("SecondaryAction", EInputEvent::IE_Pressed, this, &ACPlayer::OnSecondaryAction);
+	PlayerInputComponent->BindAction("SecondaryAction", EInputEvent::IE_Released, this, &ACPlayer::OffSecondaryAction);
 }
 
 void ACPlayer::OnMoveForward(float Axis)
@@ -196,9 +199,26 @@ void ACPlayer::OnTwoHand()
 	ActionComp->SetTwoHandMode();
 }
 
+void ACPlayer::OnMagicBall()
+{
+	CheckFalse(StateComp->IsIdleMode());
+
+	ActionComp->SetMagicBallMode();
+}
+
 void ACPlayer::OnPrimaryAction()
 {
 	ActionComp->DoAction();
+}
+
+void ACPlayer::OnSecondaryAction()
+{
+	ActionComp->DoSubAction(true);
+}
+
+void ACPlayer::OffSecondaryAction()
+{
+	ActionComp->DoSubAction(false);
 }
 
 void ACPlayer::Begin_Roll()

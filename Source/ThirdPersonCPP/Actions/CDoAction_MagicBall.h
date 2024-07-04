@@ -26,6 +26,10 @@ public:
 	virtual void End_SubAction() override;
 
 private:
+	UFUNCTION()
+	void OnProjectileBeginOverlap(FHitResult InHitResult);
+
+private:
 	UPROPERTY()
 	UCAim* Aim;
 

@@ -24,6 +24,9 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	FORCEINLINE EStateType GetType() {return Type;}
+
+public:
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE bool IsIdleMode() { return Type == EStateType::Idle; }
 
@@ -62,5 +65,4 @@ public:
 
 private:
 	EStateType Type;
-		
 };

@@ -216,6 +216,13 @@ void ACEnemy::Dead()
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetCharacterMovement()->DisableMovement();
 
+	//Add Impulse
+	FVector Start = GetActorLocation();
+	FVector Target = DamageInstigator->GetPawn()->GetActorLocation();
+	FVector Direction = Start - Target;
+	Direction.Normalize();
+	GetMesh()->AddImpulseAtLocation(Direction * 3000 * DamageValue, Start);
+
 	//Off All Attachemnt Collisions
 	ActionComp->OffAllCollsions();
 

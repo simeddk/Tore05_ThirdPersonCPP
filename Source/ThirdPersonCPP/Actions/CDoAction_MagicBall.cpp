@@ -12,6 +12,9 @@ void ACDoAction_MagicBall::BeginPlay()
 
 	Aim = NewObject<UCAim>();
 	Aim->BeginPlay(OwnerCharacter);
+
+	UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(OwnerCharacter);
+	ActionComp->OnActionTypeChanged.AddDynamic(this, &ACDoAction_MagicBall::AbortByActionTypeChanged);
 }
 
 void ACDoAction_MagicBall::Tick(float DeltaTime)
@@ -60,7 +63,6 @@ void ACDoAction_MagicBall::Begin_DoAction()
 	ACProjectile* ProjectileIntance = GetWorld()->SpawnActorDeferred<ACProjectile>(Datas[0].ProjectileClass, Tranform, OwnerCharacter, OwnerCharacter, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 	ProjectileIntance->OnProjectileBeginOverlap.AddDynamic(this, &ACDoAction_MagicBall::OnProjectileBeginOverlap);
 	ProjectileIntance->FinishSpawning(Tranform);
-	
 }
 
 void ACDoAction_MagicBall::End_DoAction()
@@ -92,6 +94,24 @@ void ACDoAction_MagicBall::OnProjectileBeginOverlap(FHitResult InHitResult)
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Datas[0].Effect, EffectTransform);
 	}
 
+	TSubclassOf<UCameraShake> ShakeClass = Datas[0].ShakeClass;
+	if (ShakeClass)
+	{
+		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		if (PC)
+		{
+			PC->PlayerCameraManager->PlayCameraShake(ShakeClass);
+		}
+	}
+
 	FDamageEvent DamageEvent;
 	InHitResult.GetActor()->TakeDamage(Datas[0].Power, DamageEvent, OwnerCharacter->GetController(), this);
+}
+
+void ACDoAction_MagicBall::AbortByActionTypeChanged(EActionType InPrevType, EActionType InNewType)
+{
+	CheckFalse(Aim->CanAim());
+	CheckFalse(Aim->IsZooming());
+
+	Aim->Off();
 }

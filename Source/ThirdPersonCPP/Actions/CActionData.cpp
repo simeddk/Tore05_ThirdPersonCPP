@@ -39,6 +39,11 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter)
 		DoAction->SetActorLabel(MakeActorLable(InOwnerCharacter, "DoAction"));
 		DoAction->AttachToComponent(InOwnerCharacter->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true));
 		DoAction->FinishSpawning(Transform);
+		
+		if (Equipment)
+		{
+			DoAction->SetEquipped(Equipment->IsEquipped());
+		}
 
 		if (Attachment)
 		{

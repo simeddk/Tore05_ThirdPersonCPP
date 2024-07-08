@@ -52,6 +52,8 @@ void ACDoAction_Warp::DoAction()
 	StateComp->SetActionMode();
 	OwnerCharacter->PlayAnimMontage(Datas[0].AnimMontage, Datas[0].PlayRate, Datas[0].StartSection);
 	Datas[0].bCanMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
+
+	SetPreviewMeshColor(FLinearColor(20, 0, 0)); //Todo. PoseableMesh 라는게 있단다.
 }
 
 void ACDoAction_Warp::Begin_DoAction()
@@ -72,6 +74,8 @@ void ACDoAction_Warp::End_DoAction()
 
 	StateComp->SetIdleMode();
 	AttributeComp->SetMove();
+
+	SetPreviewMeshColor(FLinearColor(0, 20, 20));
 }
 
 bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotator& OutRotation)
@@ -91,4 +95,11 @@ bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotato
 	}
 
 	return false;
+}
+
+
+void ACDoAction_Warp::SetPreviewMeshColor(FLinearColor InColor)
+{
+	FVector FromColor = FVector(InColor.R, InColor.G, InColor.B);
+	PreviewMeshComp->SetVectorParameterValueOnMaterials("Emissive", FromColor);
 }

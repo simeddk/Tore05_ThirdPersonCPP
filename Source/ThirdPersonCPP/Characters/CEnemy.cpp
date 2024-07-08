@@ -90,7 +90,7 @@ void ACEnemy::BeginPlay()
 
 	//BP BeginPlay
 	Super::BeginPlay();
-	ActionComp->SetUnarmedMode();
+	//ActionComp->SetUnarmedMode();
 
 	//Widget Settings
 	NameWidgetComp->InitWidget();

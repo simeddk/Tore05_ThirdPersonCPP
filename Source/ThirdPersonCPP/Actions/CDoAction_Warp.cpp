@@ -53,7 +53,7 @@ void ACDoAction_Warp::DoAction()
 	OwnerCharacter->PlayAnimMontage(Datas[0].AnimMontage, Datas[0].PlayRate, Datas[0].StartSection);
 	Datas[0].bCanMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
 
-	SetPreviewMeshColor(FLinearColor(20, 0, 0)); //Todo. PoseableMesh 라는게 있단다.
+	SetPreviewMeshColor(FLinearColor(20, 0, 0));
 }
 
 void ACDoAction_Warp::Begin_DoAction()

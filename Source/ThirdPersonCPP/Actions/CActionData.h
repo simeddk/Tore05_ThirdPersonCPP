@@ -12,6 +12,7 @@ class ACharacter;
 class UParticleSystem;
 class UCameraShake;
 class ACProjectile;
+class UCAction;
 
 USTRUCT(BlueprintType)
 struct FEquipmentData
@@ -66,16 +67,10 @@ class THIRDPERSONCPP_API UCActionData : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	void BeginPlay(ACharacter* InOwnerCharacter);
+	void BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction);
 
 private:
 	FString MakeActorLable(ACharacter* InOwnerCharacter, FString InMiddleName);
-
-public:
-	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
-	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
-	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
-	FORCEINLINE FLinearColor GetEquipmentColor() { return EquipmentColor; }
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Equipment")
@@ -96,8 +91,5 @@ public:
 	UPROPERTY(EditAnywhere, Category = "DoAction")
 	TArray<FDoActionData> DoActionDatas;
 
-private:
-	ACEquipment* Equipment;
-	ACAttachment* Attachment;
-	ACDoAction* DoAction;
+
 };

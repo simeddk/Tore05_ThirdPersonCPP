@@ -5,6 +5,7 @@
 #include "CActionComponent.generated.h"
 
 class UCActionData;
+class UCAction;
 
 UENUM(BlueprintType)
 enum class EActionType : uint8
@@ -34,7 +35,10 @@ public:
 
 public:
 	UFUNCTION(BlueprintPure)
-	FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+	FORCEINLINE UCAction* GetCurrentActionData() { return Datas[(int32)Type]; }
+
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE UCActionData* GetCurrentActionDataAsset() { return DataAssets[(int32)Type]; }
 
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE bool IsUnarmedMode() { return Type == EActionType::Unarmed; }
@@ -93,5 +97,8 @@ private:
 
 private:
 	EActionType Type;
+
+	UPROPERTY()
+	UCAction* Datas[(int32)EActionType::Max];
 
 };

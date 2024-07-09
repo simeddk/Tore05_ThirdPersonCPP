@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Components/CActionComponent.h"
 #include "Actions/CActionData.h"
+#include "Actions/CAction.h"
 #include "Actions/CAttachment.h"
 #include "Actions/CDoAction_Melee.h"
 
@@ -18,7 +19,7 @@ void UCAnimNotifyState_Collision::NotifyBegin(USkeletalMeshComponent* MeshComp, 
 	UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(ActionComp);
 
-	UCActionData* ActionData = ActionComp->GetCurrentActionData();
+	UCAction* ActionData = ActionComp->GetCurrentActionData();
 	CheckNull(ActionData);
 
 	ACAttachment* Attachment = ActionData->GetAttachment();
@@ -35,7 +36,7 @@ void UCAnimNotifyState_Collision::NotifyEnd(USkeletalMeshComponent* MeshComp, UA
 	UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(ActionComp);
 
-	UCActionData* ActionData = ActionComp->GetCurrentActionData();
+	UCAction* ActionData = ActionComp->GetCurrentActionData();
 	CheckNull(ActionData);
 
 	ACAttachment* Attachment = ActionData->GetAttachment();

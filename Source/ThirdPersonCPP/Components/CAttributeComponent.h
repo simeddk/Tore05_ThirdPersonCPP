@@ -38,6 +38,8 @@ public:
 	void SetMove();
 	void SetStop();
 
+	void SetWalkSpeed(EWalkSpeedType InWalkSpeed);
+
 private:
 	UPROPERTY(EditAnywhere, Category = "Attributes")
 	float WalkSpeeds[(int32)EWalkSpeedType::Max];

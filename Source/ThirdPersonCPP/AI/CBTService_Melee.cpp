@@ -38,12 +38,14 @@ void UCBTService_Melee::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	//Not Detected Player
 	if (Player == nullptr)
 	{
+		AIC->ClearFocus(EAIFocusPriority::Gameplay);
+
 		if (PatrolComp->IsPathValid())
 		{
 			BehaviorComp->SetPatrolMode();
 			return;
 		}
-		//Todo. Patrol Task
+		//Todo. Patrol Task(Action Task Abort!)
 
 		BehaviorComp->SetWaitMode();
 		return;

@@ -52,6 +52,23 @@ void UCActionComponent::DoSubAction(bool bBegin)
 	}
 }
 
+void UCActionComponent::Abort()
+{
+	CheckNull(GetCurrentActionData());
+	CheckTrue(IsUnarmedMode());
+
+	if (GetCurrentActionData()->GetEquipment())
+	{
+		GetCurrentActionData()->GetEquipment()->Begin_Equip();
+		GetCurrentActionData()->GetEquipment()->End_Equip();
+	}
+	
+	if (GetCurrentActionData()->GetDoAction())
+	{
+		GetCurrentActionData()->GetDoAction()->Abort();
+	}
+}
+
 void UCActionComponent::OffAllCollsions()
 {
 	for (const auto& DataAsset : Datas)
@@ -62,6 +79,30 @@ void UCActionComponent::OffAllCollsions()
 		}
 	}
 
+}
+
+void UCActionComponent::DestoryAll()
+{
+	for (int32 i = 0; i < (int32)EActionType::Max; i++)
+	{
+		if (Datas[i])
+		{
+			if (Datas[i]->GetDoAction())
+			{
+				Datas[i]->GetDoAction()->Destroy();
+			}
+
+			if (Datas[i]->GetEquipment())
+			{
+				Datas[i]->GetEquipment()->Destroy();
+			}
+
+			if (Datas[i]->GetAttachment())
+			{
+				Datas[i]->GetAttachment()->Destroy();
+			}
+		}
+	}
 }
 
 void UCActionComponent::SetUnarmedMode()

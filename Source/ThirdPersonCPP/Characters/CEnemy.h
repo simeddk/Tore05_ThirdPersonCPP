@@ -74,6 +74,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Hitted")
 	UCurveFloat* DissolveCurve;
 
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	bool bVisibleNameWidget;
+
 private:
 	UMaterialInstanceDynamic* BodyMaterial;
 	UMaterialInstanceDynamic* LogoMaterial;

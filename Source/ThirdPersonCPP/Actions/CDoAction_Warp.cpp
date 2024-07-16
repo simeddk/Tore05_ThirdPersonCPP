@@ -1,10 +1,12 @@
 #include "CDoAction_Warp.h"
 #include "Global.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameModeBase.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/CStateComponent.h"
 #include "Components/CAttributeComponent.h"
+#include "Components/CBehaviorComponent.h"
 #include "CAttachment.h"
 
 void ACDoAction_Warp::BeginPlay()
@@ -29,6 +31,7 @@ void ACDoAction_Warp::Tick(float DeltaTime)
 	PreviewMeshComp->SetVisibility(false);
 
 	CheckFalse(*bEquipped);
+	CheckFalse(IsPlayerClass());
 
 	FVector CurLoc;
 	FRotator CurRot;
@@ -46,8 +49,23 @@ void ACDoAction_Warp::DoAction()
 
 	CheckFalse(StateComp->IsIdleMode());
 
-	FRotator Temp;
-	CheckFalse(GetCursorLocationAndRotation(Location, Temp));
+	if (IsPlayerClass())
+	{
+		FRotator Temp;
+		CheckFalse(GetCursorLocationAndRotation(Location, Temp));
+	}
+	else
+	{
+		AController* AIC = OwnerCharacter->GetController();
+		if (AIC)
+		{
+			UCBehaviorComponent* BehaviorComp =CHelpers::GetComponent<UCBehaviorComponent>(AIC);
+			if (BehaviorComp)
+			{
+				Location = BehaviorComp->GetLocationKey();
+			}
+		}
+	}
 
 	StateComp->SetActionMode();
 	OwnerCharacter->PlayAnimMontage(Datas[0].AnimMontage, Datas[0].PlayRate, Datas[0].StartSection);
@@ -102,4 +120,9 @@ void ACDoAction_Warp::SetPreviewMeshColor(FLinearColor InColor)
 {
 	FVector FromColor = FVector(InColor.R, InColor.G, InColor.B);
 	PreviewMeshComp->SetVectorParameterValueOnMaterials("Emissive", FromColor);
+}
+
+bool ACDoAction_Warp::IsPlayerClass()
+{
+	return (OwnerCharacter->GetClass()) == (GetWorld()->GetAuthGameMode()->DefaultPawnClass);
 }

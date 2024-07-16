@@ -45,7 +45,6 @@ void UCBTService_Melee::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 			BehaviorComp->SetPatrolMode();
 			return;
 		}
-		//Todo. Patrol Task(Action Task Abort!)
 
 		BehaviorComp->SetWaitMode();
 		return;

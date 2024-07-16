@@ -80,9 +80,13 @@ void ACDoAction_Melee::OnAttachmentBeginOverlap(ACharacter* InAttacker, AActor* 
 	HittedCharacters.AddUnique(InOtherCharacter);
 	CheckFalse(NuumberOfHittedCharacters < HittedCharacters.Num());
 
+	//Take Damage
+	FDamageEvent DamageEvent;
+	InOtherCharacter->TakeDamage(Datas[ComboCount].Power, DamageEvent, InAttacker->GetController(), InCauser);
+
 	//HitStop
 	float HitStop = Datas[ComboCount].HitStop;
-	if (FMath::IsNearlyZero(HitStop) == false)
+	if (FMath::IsNearlyZero(HitStop) == false && UGameplayStatics::GetGlobalTimeDilation(GetWorld()) >= 1.f)
 	{
 		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 0.02f);
 		UKismetSystemLibrary::K2_SetTimer(this, "RestoreGlobalTimeDilation", HitStop * 0.02f, false);
@@ -106,10 +110,6 @@ void ACDoAction_Melee::OnAttachmentBeginOverlap(ACharacter* InAttacker, AActor* 
 		Trasform.AddToTranslation(InOtherCharacter->GetActorLocation());
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitEffect, Trasform);
 	}
-
-	//Take Damage
-	FDamageEvent DamageEvent;
-	InOtherCharacter->TakeDamage(Datas[ComboCount].Power, DamageEvent, InAttacker->GetController(), InCauser);
 }
 
 void ACDoAction_Melee::OnAttachmentEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)

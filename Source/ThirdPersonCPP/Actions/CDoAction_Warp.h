@@ -25,6 +25,7 @@ public:
 private:
 	bool GetCursorLocationAndRotation(FVector& OutLocation, FRotator& OutRotation);
 	void SetPreviewMeshColor(FLinearColor InColor);
+	bool IsPlayerClass();
 
 private:
 	USkeletalMeshComponent* PreviewMeshComp;

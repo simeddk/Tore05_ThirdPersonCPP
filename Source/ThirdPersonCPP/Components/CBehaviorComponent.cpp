@@ -1,8 +1,12 @@
 #include "CBehaviorComponent.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Characters/CPlayer.h"
 
 UCBehaviorComponent::UCBehaviorComponent()
 {
-
+	BehaviorKey = "BehaviorKey";
+	PlayerKey = "PlayerKey";
+	LocationKey = "LocationKey";
 }
 
 
@@ -16,68 +20,84 @@ void UCBehaviorComponent::BeginPlay()
 void UCBehaviorComponent::SetBlackboardComp(UBlackboardComponent* InComp)
 {
 	BlackboardComp = InComp;
-	//Todo.. 나머지는 내일..
 }
 
 bool UCBehaviorComponent::IsWaitMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Wait;
 }
 
 bool UCBehaviorComponent::IsApproachMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Approach;
 }
 
 bool UCBehaviorComponent::IsActionMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Action;
 }
 
 bool UCBehaviorComponent::IsPatrolMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Patrol;
 }
 
 bool UCBehaviorComponent::IsHittedMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Hitted;
 }
 
 bool UCBehaviorComponent::IsEscapeMode()
 {
-	return false;
+	return GetType() == EBehaviorType::Escape;
 }
 
 void UCBehaviorComponent::SetWaitMode()
 {
+	ChangeType(EBehaviorType::Wait);
 }
 
 void UCBehaviorComponent::SetApproachMode()
 {
+	ChangeType(EBehaviorType::Approach);
 }
 
 void UCBehaviorComponent::SetActionMode()
 {
+	ChangeType(EBehaviorType::Action);
 }
 
 void UCBehaviorComponent::SetPatrolMode()
 {
+	ChangeType(EBehaviorType::Patrol);
 }
 
 void UCBehaviorComponent::SetHittedMode()
 {
+	ChangeType(EBehaviorType::Hitted);
 }
 
 void UCBehaviorComponent::SetEscapeMode()
 {
+	ChangeType(EBehaviorType::Escape);
+}
+
+ACPlayer* UCBehaviorComponent::GetPlayerKey()
+{
+	return Cast<ACPlayer>(BlackboardComp->GetValueAsObject(PlayerKey));
+}
+
+FVector UCBehaviorComponent::GetLocationKey()
+{
+	return BlackboardComp->GetValueAsVector(LocationKey);
 }
 
 void UCBehaviorComponent::ChangeType(EBehaviorType InNewType)
 {
+	BlackboardComp->SetValueAsEnum(BehaviorKey, (uint8)InNewType);
 }
 
 EBehaviorType UCBehaviorComponent::GetType()
 {
-	return EBehaviorType();
+	return (EBehaviorType)BlackboardComp->GetValueAsEnum(BehaviorKey);
 }

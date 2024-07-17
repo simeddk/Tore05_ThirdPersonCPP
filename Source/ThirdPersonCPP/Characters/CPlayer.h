@@ -15,6 +15,7 @@ class UCStateComponent;
 class UCMontagesComponent;
 class UCActionComponent;
 class UMaterialInstanceDynamic;
+class UPostProcessComponent;
 
 UCLASS()
 class THIRDPERSONCPP_API ACPlayer : public ACharacter, public ICCharacterInterface, public IGenericTeamAgentInterface
@@ -101,9 +102,15 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
 	UCActionComponent* ActionComp;
 
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "Components")
+	UPostProcessComponent* PostProcessComp;
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "TeamID")
 	uint8 TeamID;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> DeadWidgetClass;
 
 private:
 	UMaterialInstanceDynamic* BodyMaterial;
@@ -111,4 +118,6 @@ private:
 
 	float DamageValue;
 	AController* DamageInstigator;
+
+	UUserWidget* DeadWidget;
 };

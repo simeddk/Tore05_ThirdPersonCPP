@@ -63,6 +63,8 @@ void ACAIController::Tick(float DeltaTime)
 
 	FVector Center = OwnerEnemy->GetActorLocation();
 
+	//Todo. 플레이어 사망 시 BB 값 지우기
+
 	CheckFalse(bDrawRange);
 	DrawDebugSphere(GetWorld(), Center, Sight->SightRadius, Segment, FColor::Green);
 	DrawDebugSphere(GetWorld(), Center, BehaviorRange, Segment, FColor::Red);

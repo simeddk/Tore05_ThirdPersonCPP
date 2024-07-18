@@ -23,6 +23,11 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	Speed = Charater->GetVelocity().Size2D();
 	Direction = CalculateDirection(Charater->GetVelocity(), Charater->GetControlRotation());
+
+	UCFeetComponent* FeetComp = CHelpers::GetComponent<UCFeetComponent>(Charater);
+	CheckNull(FeetComp);
+
+	FeetData = FeetComp->GetData();
 }
 
 void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InNewType)

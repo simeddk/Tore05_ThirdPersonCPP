@@ -23,7 +23,7 @@ void ACHUD::DrawHUD()
 {
 	Super::DrawHUD();
 
-	if (StateComp && StateTypeAsUEnum)
+	if (bShowState && StateComp && StateTypeAsUEnum)
 	{
 		FString StateTypeString = StateTypeAsUEnum->GetNameStringByValue((int64)StateComp->GetType());
 		DrawText("CurrentState : " + StateTypeString, FLinearColor::Red, 10.f, Canvas->ClipY - 30.f);

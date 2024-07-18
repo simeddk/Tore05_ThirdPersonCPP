@@ -28,6 +28,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UTexture2D* CrossHairTexture;
 
+	UPROPERTY(EditDefaultsOnly)
+	bool bShowState;
+
 
 private:
 	bool bVisibleAim;

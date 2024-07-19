@@ -20,6 +20,8 @@ public:
 	virtual void Begin_DoAction() override;
 	virtual void End_DoAction() override;
 
+	virtual void Abort() override;
+
 public:
 	void EnableCombo();
 	void DisableCombo();

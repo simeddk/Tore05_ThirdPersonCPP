@@ -14,7 +14,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 	if (AttachmentClass)
 	{	
 		Attachment = InOwnerCharacter->GetWorld()->SpawnActorDeferred<ACAttachment>(AttachmentClass, Transform, InOwnerCharacter);
-		Attachment->SetActorLabel(MakeActorLable(InOwnerCharacter, "Attachment"));
+		//Attachment->SetActorLabel(MakeActorLable(InOwnerCharacter, "Attachment"));
 		Attachment->FinishSpawning(Transform);
 	}
 
@@ -24,7 +24,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 		Equipment = InOwnerCharacter->GetWorld()->SpawnActorDeferred<ACEquipment>(EquipmentClass, Transform, InOwnerCharacter);
 		Equipment->SetData(EquipmentData);
 		Equipment->SetColor(EquipmentColor);
-		Equipment->SetActorLabel(MakeActorLable(InOwnerCharacter, "Equipment"));
+		//Equipment->SetActorLabel(MakeActorLable(InOwnerCharacter, "Equipment"));
 		Equipment->FinishSpawning(Transform);
 
 		if (Attachment)
@@ -39,7 +39,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 	{
 		DoAction = InOwnerCharacter->GetWorld()->SpawnActorDeferred<ACDoAction>(DoActionClass, Transform, InOwnerCharacter);
 		DoAction->SetDatas(DoActionDatas);
-		DoAction->SetActorLabel(MakeActorLable(InOwnerCharacter, "DoAction"));
+		//DoAction->SetActorLabel(MakeActorLable(InOwnerCharacter, "DoAction"));
 		DoAction->AttachToComponent(InOwnerCharacter->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true));
 		DoAction->FinishSpawning(Transform);
 		
@@ -65,11 +65,11 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 FString UCActionData::MakeActorLable(ACharacter* InOwnerCharacter, FString InMiddleName)
 {
 	FString Label;
-	Label.Append(InOwnerCharacter->GetActorLabel());
+	/*Label.Append(InOwnerCharacter->GetActorLabel());
 	Label.Append("_");
 	Label.Append(InMiddleName);
 	Label.Append("_");
-	Label.Append(GetName().Replace(TEXT("DA_"), TEXT("")));
+	Label.Append(GetName().Replace(TEXT("DA_"), TEXT("")));*/
 
 	return Label;
 }

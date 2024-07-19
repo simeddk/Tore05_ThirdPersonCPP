@@ -45,6 +45,9 @@ void UCFeetComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	Data.LeftDistance.X = UKismetMathLibrary::FInterpTo(Data.LeftDistance.X, (LeftDistance - Floating), DeltaTime, InterpSpeed);
 	Data.RightDistance.X = UKismetMathLibrary::FInterpTo(Data.RightDistance.X, -(RightDistance - Floating), DeltaTime, InterpSpeed);
+
+	Data.LeftRotation = UKismetMathLibrary::RInterpTo(Data.LeftRotation, LeftRotation, DeltaTime, InterpSpeed);
+	Data.RightRotation = UKismetMathLibrary::RInterpTo(Data.RightRotation, RightRotation, DeltaTime, InterpSpeed);
 }
 
 void UCFeetComponent::Trace(FName InSocketName, float& OutDistance, FRotator& OutRotation)
@@ -79,8 +82,14 @@ void UCFeetComponent::Trace(FName InSocketName, float& OutDistance, FRotator& Ou
 	float Length = (Hit.ImpactPoint - Hit.TraceEnd).Size();
 	OutDistance = FootHeight + Length - Additional;
 
-	//Todo. Rotate Foot
 	FVector ImpactNormal = Hit.ImpactNormal;
-	OutRotation = ImpactNormal.Rotation();
+
+	float Pitch = -UKismetMathLibrary::DegAtan2(ImpactNormal.X, ImpactNormal.Z);
+	float Roll = UKismetMathLibrary::DegAtan2(ImpactNormal.Y, ImpactNormal.Z);
+
+	Pitch = FMath::Clamp(Pitch, -30.f, 30.f);
+	Roll = FMath::Clamp(Roll, -15.f, 15.f);
+
+	OutRotation = FRotator(Pitch, 0.f, Roll);
 }
 

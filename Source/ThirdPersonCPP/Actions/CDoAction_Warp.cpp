@@ -15,7 +15,7 @@ void ACDoAction_Warp::BeginPlay()
 
 	for (const auto& Child : OwnerCharacter->Children)
 	{
-		if (Child->IsA<ACAttachment>() && Child->GetActorLabel().Contains("Warp"))
+		if (Child->IsA<ACAttachment>() && Child->GetName().Contains("Warp"))
 		{
 			PreviewMeshComp = CHelpers::GetComponent<USkeletalMeshComponent>(Child);
 			break;

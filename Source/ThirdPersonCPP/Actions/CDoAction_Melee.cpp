@@ -51,6 +51,11 @@ void ACDoAction_Melee::End_DoAction()
 	AttributeComp->SetMove();
 }
 
+void ACDoAction_Melee::Abort()
+{
+	ComboCount = 0;
+}
+
 void ACDoAction_Melee::EnableCombo()
 {
 	bCanCombo = true;
